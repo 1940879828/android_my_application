@@ -27,12 +27,14 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.material3.Icon
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Comment
 import androidx.compose.material.icons.filled.Add
 
 @Composable
 fun HomeScreen(
     onOpenCreate: () -> Unit,
     onOpenMe: () -> Unit,
+    onOpenComments: () -> Unit,
 ) {
     Box(
         modifier = Modifier
@@ -67,6 +69,7 @@ fun HomeScreen(
 
         HomeBottomActionGroup(
             onOpenCreate = onOpenCreate,
+            onOpenComments = onOpenComments,
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .navigationBarsPadding()
@@ -78,11 +81,46 @@ fun HomeScreen(
 @Composable
 private fun HomeBottomActionGroup(
     onOpenCreate: () -> Unit,
+    onOpenComments: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Surface(
-        onClick = onOpenCreate,
+    Row(
         modifier = modifier,
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+    ) {
+        HomeActionButton(
+            label = "Comments",
+            icon = {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.Comment,
+                    contentDescription = "Open Comments",
+                    tint = Color.White,
+                )
+            },
+            onClick = onOpenComments,
+        )
+        HomeActionButton(
+            label = "Create",
+            icon = {
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = "Open Create",
+                    tint = Color.White,
+                )
+            },
+            onClick = onOpenCreate,
+        )
+    }
+}
+
+@Composable
+private fun HomeActionButton(
+    label: String,
+    icon: @Composable () -> Unit,
+    onClick: () -> Unit,
+) {
+    Surface(
+        onClick = onClick,
         shape = RoundedCornerShape(24.dp),
         color = Color.White.copy(alpha = 0.10f),
     ) {
@@ -91,14 +129,10 @@ private fun HomeBottomActionGroup(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center,
         ) {
-            Icon(
-                imageVector = Icons.Default.Add,
-                contentDescription = "Open Create",
-                tint = Color.White,
-            )
+            icon()
             Spacer(modifier = Modifier.width(8.dp))
             Text(
-                text = "Create",
+                text = label,
                 color = Color.White,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Medium,

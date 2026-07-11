@@ -11,6 +11,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.example.myapplication.core.AppViewModel
+import com.example.myapplication.features.home.CommentOverlay
 import com.example.myapplication.features.create.CreateScreen
 import com.example.myapplication.features.home.HomeScreen
 import com.example.myapplication.features.me.MeScreen
@@ -20,8 +21,9 @@ fun NavGraph(
     viewModel: AppViewModel,
 ) {
     val currentScreen by viewModel.screen.collectAsState()
+    val isCommentSheetOpen by viewModel.isCommentSheetOpen.collectAsState()
 
-    BackHandler(enabled = currentScreen != AppScreen.HOME) {
+    BackHandler(enabled = isCommentSheetOpen || currentScreen != AppScreen.HOME) {
         viewModel.navigateBack()
     }
 
@@ -51,6 +53,7 @@ fun NavGraph(
                     AppScreen.HOME -> HomeScreen(
                         onOpenCreate = { viewModel.openCreate() },
                         onOpenMe = { viewModel.openMe() },
+                        onOpenComments = { viewModel.openComments() },
                     )
 
                     AppScreen.CREATE -> CreateScreen(
@@ -63,5 +66,10 @@ fun NavGraph(
                 }
             }
         }
+
+        CommentOverlay(
+            visible = currentScreen == AppScreen.HOME && isCommentSheetOpen,
+            onClose = { viewModel.closeComments() },
+        )
     }
 }

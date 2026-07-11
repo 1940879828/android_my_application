@@ -24,18 +24,34 @@ import kotlinx.coroutines.flow.asStateFlow
 class AppViewModel : ViewModel() {
     private val _screen = MutableStateFlow(AppScreen.HOME)
     val screen: StateFlow<AppScreen> = _screen.asStateFlow()
+    private val _isCommentSheetOpen = MutableStateFlow(false)
+    val isCommentSheetOpen: StateFlow<Boolean> = _isCommentSheetOpen.asStateFlow()
+
+    fun openComments() {
+        _isCommentSheetOpen.value = true
+    }
+
+    fun closeComments() {
+        _isCommentSheetOpen.value = false
+    }
+
     fun openMe() {
+        closeComments()
         _screen.value = AppScreen.ME
     }
 
     fun openCreate() {
+        closeComments()
         _screen.value = AppScreen.CREATE
     }
     fun navigateBack() {
-        when (_screen.value) {
-            AppScreen.HOME -> Unit
-            AppScreen.CREATE -> _screen.value = AppScreen.HOME
-            AppScreen.ME -> _screen.value = AppScreen.HOME
+        when {
+            _isCommentSheetOpen.value -> closeComments()
+            else -> when (_screen.value) {
+                AppScreen.HOME -> Unit
+                AppScreen.CREATE -> _screen.value = AppScreen.HOME
+                AppScreen.ME -> _screen.value = AppScreen.HOME
+            }
         }
     }
 }
