@@ -24,15 +24,17 @@ import kotlinx.coroutines.flow.asStateFlow
 class AppViewModel : ViewModel() {
     private val _screen = MutableStateFlow(AppScreen.HOME)
     val screen: StateFlow<AppScreen> = _screen.asStateFlow()
-    fun navigateTo(screen: AppScreen) {
-        _screen.value = screen
-    }
     fun openMe() {
         _screen.value = AppScreen.ME
+    }
+
+    fun openCreate() {
+        _screen.value = AppScreen.CREATE
     }
     fun navigateBack() {
         when (_screen.value) {
             AppScreen.HOME -> Unit
+            AppScreen.CREATE -> _screen.value = AppScreen.HOME
             AppScreen.ME -> _screen.value = AppScreen.HOME
         }
     }

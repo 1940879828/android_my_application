@@ -1,14 +1,22 @@
 [versions]
 agp = "9.2.1"
-coreKtx = "1.19.0"
+#noinspection GradleDependency
+coreKtx = "1.10.1"
 junit = "4.13.2"
-junitVersion = "1.3.0"
-espressoCore = "3.7.0"
-lifecycleRuntimeKtx = "2.11.0"
-activityCompose = "1.13.0"
-kotlin = "2.4.0"
-composeBom = "2026.06.01"
-lifecycleCompose = "2.11.0"
+#noinspection GradleDependency
+junitVersion = "1.1.5"
+#noinspection GradleDependency
+espressoCore = "3.5.1"
+#noinspection GradleDependency
+lifecycleRuntimeKtx = "2.6.1"
+#noinspection GradleDependency
+activityCompose = "1.8.0"
+#noinspection NewerVersionAvailable
+kotlin = "2.2.10"
+#noinspection GradleDependency
+composeBom = "2026.02.01"
+#noinspection GradleDependency
+lifecycleCompose = "2.8.4"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -27,6 +35,7 @@ androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-te
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycleCompose" }
 androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycleCompose" }
+androidx-compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

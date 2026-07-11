@@ -38,6 +38,10 @@ fun resolveTransitionKind(pair: RoutePair): RouteTransitionKind =
     when (pair) {
         RoutePair(AppScreen.HOME, AppScreen.ME) -> RouteTransitionKind.PushForward
         RoutePair(AppScreen.ME, AppScreen.HOME) -> RouteTransitionKind.PushBack
+
+        RoutePair(AppScreen.HOME, AppScreen.CREATE) -> RouteTransitionKind.Fade
+        RoutePair(AppScreen.CREATE, AppScreen.HOME) -> RouteTransitionKind.Fade
+
         else -> RouteTransitionKind.Fade
     }
 

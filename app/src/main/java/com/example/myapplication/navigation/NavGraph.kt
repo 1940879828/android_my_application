@@ -11,6 +11,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.example.myapplication.core.AppViewModel
+import com.example.myapplication.features.create.CreateScreen
 import com.example.myapplication.features.home.HomeScreen
 import com.example.myapplication.features.me.MeScreen
 
@@ -48,7 +49,12 @@ fun NavGraph(
             ) {
                 when (screen) {
                     AppScreen.HOME -> HomeScreen(
+                        onOpenCreate = { viewModel.openCreate() },
                         onOpenMe = { viewModel.openMe() },
+                    )
+
+                    AppScreen.CREATE -> CreateScreen(
+                        onBack = { viewModel.navigateBack() },
                     )
 
                     AppScreen.ME -> MeScreen(

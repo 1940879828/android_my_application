@@ -2,13 +2,18 @@ package com.example.myapplication.features.home
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -20,9 +25,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.material3.Icon
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 
 @Composable
 fun HomeScreen(
+    onOpenCreate: () -> Unit,
     onOpenMe: () -> Unit,
 ) {
     Box(
@@ -55,6 +64,46 @@ fun HomeScreen(
             fontWeight = FontWeight.Bold,
             modifier = Modifier.align(Alignment.Center),
         )
+
+        HomeBottomActionGroup(
+            onOpenCreate = onOpenCreate,
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .navigationBarsPadding()
+                .padding(bottom = 20.dp),
+        )
+    }
+}
+
+@Composable
+private fun HomeBottomActionGroup(
+    onOpenCreate: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Surface(
+        onClick = onOpenCreate,
+        modifier = modifier,
+        shape = RoundedCornerShape(24.dp),
+        color = Color.White.copy(alpha = 0.10f),
+    ) {
+        Row(
+            modifier = Modifier.padding(horizontal = 18.dp, vertical = 14.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center,
+        ) {
+            Icon(
+                imageVector = Icons.Default.Add,
+                contentDescription = "Open Create",
+                tint = Color.White,
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(
+                text = "Create",
+                color = Color.White,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Medium,
+            )
+        }
     }
 }
 
